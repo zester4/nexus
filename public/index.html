@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Chat // Multi-Agent AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="chat-container">
+        <header id="chat-header">
+            <h1>Nexus Chat // AI Collective</h1>
+            <div id="status-lights">
+                <span class="light" id="light-gemini" title="Gemini Status"></span>
+                <span class="light" id="light-llama" title="Llama Status"></span>
+                <span class="light" id="light-qwen" title="Qwen Status"></span>
+                <span class="light" id="light-human" title="Your Status"></span>
+            </div>
+        </header>
+        <div id="chat-window-wrapper">
+            <div id="chat-window"></div>
+        </div>
+        <div id="typing-indicator-area"></div>
+        <footer id="input-area">
+            <input type="text" id="message-input" placeholder="Interface with the collective..." autocomplete="off">
+            <button id="send-button" aria-label="Send Message">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M3.478 2.405a.75.75 0 0 0-.926.94l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.405Z" />
+                </svg>
+            </button>
+        </footer>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
