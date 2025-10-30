@@ -7,7 +7,7 @@ const { Groq } = require('groq-sdk');
 const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
-const { CommandHandler, buildAgentPrompt } = require('./command');
+const { CommandHandler, buildAgentPrompt } = require('./commands');
 
 // Load environment variables
 dotenv.config();
@@ -319,6 +319,7 @@ class MultiAgentChatServer {
         // Special modes
         this.roundtableMode = null;
         this.consensusMode = null;
+        this.isPaused = false; // Track pause state
         
         // Initialize command handler
         this.commandHandler = new CommandHandler(this);
