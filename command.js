@@ -88,7 +88,10 @@ class CommandHandler {
             '/consensus': this.handleConsensusCommand.bind(this),
             '/focus': this.handleFocusCommand.bind(this),
             '/help': this.handleHelpCommand.bind(this),
-            '/roles': this.handleRolesCommand.bind(this)
+            '/roles': this.handleRolesCommand.bind(this),
+            '/pause': this.handlePauseCommand.bind(this),
+            '/resume': this.handleResumeCommand.bind(this),
+            '/stop': this.handleStopCommand.bind(this)
         };
     }
 
