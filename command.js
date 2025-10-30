@@ -275,6 +275,9 @@ class CommandHandler {
 /roundtable [topic] - All agents respond sequentially
 /consensus [question] - Quick votes/positions from all agents
 /focus @AgentName [question] - Consult specific agent only
+/pause - Pause auto-conversation (agents only respond to direct messages)
+/resume - Resume auto-conversation from paused state
+/stop - Stop all agent activity completely
 /roles - Show current agent roles and specializations
 /help - Show this help message
 
@@ -283,6 +286,9 @@ Examples:
   /roundtable What's the best approach to solve climate change?
   /consensus Should we use React or Vue for this project?
   /focus @Llama How do I optimize this database query?
+  /pause - Pause agents when you want to ask focused questions
+  /resume - Let agents start talking again
+  /stop - Completely stop all activity (useful for breaks)
         `.trim();
 
         return {
@@ -308,6 +314,36 @@ Examples:
         return {
             success: true,
             message: rolesText.trim(),
+            systemMessage: true
+        };
+    }
+
+    // /pause command - Pause auto-conversation
+    async handlePauseCommand(args, clientId) {
+        this.chatServer.pauseConversation();
+        return {
+            success: true,
+            message: "⏸️ Auto-conversation paused. Agents will only respond to direct messages.",
+            systemMessage: true
+        };
+    }
+
+    // /resume command - Resume auto-conversation
+    async handleResumeCommand(args, clientId) {
+        this.chatServer.resumeConversation();
+        return {
+            success: true,
+            message: "▶️ Auto-conversation resumed. Agents will now participate actively.",
+            systemMessage: true
+        };
+    }
+
+    // /stop command - Stop all agent activity
+    async handleStopCommand(args, clientId) {
+        this.chatServer.stopConversation();
+        return {
+            success: true,
+            message: "⏹️ Conversation stopped. All agent activity halted.",
             systemMessage: true
         };
     }
