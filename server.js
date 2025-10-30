@@ -420,9 +420,11 @@ class MultiAgentChatServer {
         // Normal message handling
         this.addMessage(new ChatMessage('Human', content));
 
+        // Start conversation only when user sends their first message
         if (!this.conversationActive) {
             this.conversationActive = true;
             console.log("Conversation activated by human input.");
+            this.addSystemMessage("🚀 Conversation started! The AI agents are now online.");
         }
 
         clearTimeout(this.autoConversationTimer);
@@ -653,12 +655,12 @@ class MultiAgentChatServer {
         server.listen(PORT, () => {
             console.log(`Server is listening on http://localhost:${PORT}`);
 
+            // Don't start auto-conversation on startup - wait for user to initiate
+            this.conversationActive = false;
             if (Object.keys(this.agents).length > 0) {
-                this.conversationActive = true;
-                console.log("Starting auto-conversation.");
-                this.scheduleAutoConversation(5000);
+                console.log("System ready. Waiting for user to start the conversation...");
             } else {
-                this.conversationActive = false;
+                console.warn("Warning: No AI agents initialized. Check API keys.");
             }
             this.resetSaveTimer();
         });
