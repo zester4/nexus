@@ -11,19 +11,71 @@
     <div id="chat-container">
         <header id="chat-header">
             <h1>Nexus Chat // AI Collective</h1>
-            <div id="status-lights">
-                <span class="light" id="light-gemini" title="Gemini Status"></span>
-                <span class="light" id="light-llama" title="Llama Status"></span>
-                <span class="light" id="light-qwen" title="Qwen Status"></span>
-                <span class="light" id="light-human" title="Your Status"></span>
+            <div id="header-controls">
+                <button id="commands-btn" class="icon-btn" title="Show Commands">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="1"/>
+                        <circle cx="12" cy="5" r="1"/>
+                        <circle cx="12" cy="19" r="1"/>
+                    </svg>
+                </button>
+                <div id="status-lights">
+                    <span class="light" id="light-gemini" title="Gemini Status"></span>
+                    <span class="light" id="light-llama" title="Llama Status"></span>
+                    <span class="light" id="light-qwen" title="Qwen Status"></span>
+                    <span class="light" id="light-gpt" title="GPT Status"></span>
+                    <span class="light" id="light-human" title="Your Status"></span>
+                </div>
             </div>
         </header>
+
+        <!-- Command Panel -->
+        <div id="command-panel" class="hidden">
+            <div class="command-panel-header">
+                <h3>💬 Quick Commands</h3>
+                <button id="close-commands" class="close-btn">✕</button>
+            </div>
+            <div class="command-list">
+                <div class="command-item" data-command="/help">
+                    <div class="command-name">/help</div>
+                    <div class="command-desc">Show all commands</div>
+                </div>
+                <div class="command-item" data-command="/roles">
+                    <div class="command-name">/roles</div>
+                    <div class="command-desc">View agent specializations</div>
+                </div>
+                <div class="command-item" data-command="/roundtable ">
+                    <div class="command-name">/roundtable [topic]</div>
+                    <div class="command-desc">All agents respond sequentially</div>
+                </div>
+                <div class="command-item" data-command="/consensus ">
+                    <div class="command-name">/consensus [question]</div>
+                    <div class="command-desc">Quick poll from all agents</div>
+                </div>
+                <div class="command-item" data-command="/focus @">
+                    <div class="command-name">/focus @Agent [question]</div>
+                    <div class="command-desc">Consult specific expert</div>
+                </div>
+                <div class="command-item" data-command="/role ">
+                    <div class="command-name">/role Agent = "..."</div>
+                    <div class="command-desc">Change agent role</div>
+                </div>
+            </div>
+            <div class="agent-quick-select">
+                <div class="quick-select-title">Quick Focus:</div>
+                <button class="agent-btn" data-agent="Gemini">@Gemini</button>
+                <button class="agent-btn" data-agent="Llama">@Llama</button>
+                <button class="agent-btn" data-agent="Qwen">@Qwen</button>
+                <button class="agent-btn" data-agent="GPT">@GPT</button>
+            </div>
+        </div>
+
         <div id="chat-window-wrapper">
             <div id="chat-window"></div>
         </div>
         <div id="typing-indicator-area"></div>
         <footer id="input-area">
-            <input type="text" id="message-input" placeholder="Interface with the collective..." autocomplete="off">
+            <input type="text" id="message-input" placeholder="Interface with the collective... (type / for commands)" autocomplete="off">
             <button id="send-button" aria-label="Send Message">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                     <path d="M3.478 2.405a.75.75 0 0 0-.926.94l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.405Z" />
@@ -31,6 +83,10 @@
             </button>
         </footer>
     </div>
+
+    <!-- Command autocomplete dropdown -->
+    <div id="autocomplete-dropdown" class="hidden"></div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
