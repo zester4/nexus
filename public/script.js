@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const commands = [
         { cmd: '/help', desc: 'Show all available commands' },
         { cmd: '/roles', desc: 'View agent specializations' },
+        { cmd: '/pause', desc: 'Pause auto-conversation (agents respond only to you)' },
+        { cmd: '/resume', desc: 'Resume auto-conversation' },
+        { cmd: '/stop', desc: 'Stop all agent activity completely' },
         { cmd: '/roundtable ', desc: 'All agents respond sequentially to a topic' },
         { cmd: '/consensus ', desc: 'Quick poll from all agents' },
         { cmd: '/focus @', desc: 'Consult specific agent (e.g., /focus @Gemini)' },
