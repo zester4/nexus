@@ -7,7 +7,7 @@ const { Groq } = require('groq-sdk');
 const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
-const { CommandHandler, buildAgentPrompt } = require('./commands');
+const { CommandHandler, buildAgentPrompt } = require('./command');
 
 // Load environment variables
 dotenv.config();
@@ -558,12 +558,36 @@ class MultiAgentChatServer {
         await this.triggerAIResponse(nextAgent, 'consensus');
     }
 
+    // Pause auto-conversation - agents still respond to direct messages
+    pauseConversation() {
+        this.isPaused = true;
+        clearTimeout(this.autoConversationTimer);
+        this.addSystemMessage("⏸️ Auto-conversation paused. Agents will only respond to direct messages.");
+    }
+
+    // Resume full conversation from paused state
+    resumeConversation() {
+        this.isPaused = false;
+        this.conversationActive = true;
+        this.addSystemMessage("▶️ Auto-conversation resumed. Agents will now participate actively.");
+        this.scheduleAutoConversation(2000);
+    }
+
+    // Stop all agent activity completely
+    stopConversation() {
+        this.isPaused = true;
+        this.conversationActive = false;
+        clearTimeout(this.autoConversationTimer);
+        this.typingAgents.clear();
+        this.addSystemMessage("⏹️ Conversation stopped. All agent activity halted.");
+    }
+
     scheduleAutoConversation(forcedDelay) {
         clearTimeout(this.autoConversationTimer);
         this.autoConversationTimer = null;
 
         const aiAgentNames = Object.keys(this.agents);
-        if (!this.conversationActive || aiAgentNames.length === 0) {
+        if (!this.conversationActive || aiAgentNames.length === 0 || this.isPaused) {
             return;
         }
 
